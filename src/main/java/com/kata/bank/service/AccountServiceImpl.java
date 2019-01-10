@@ -12,4 +12,10 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+    @Override
+    public void deposit(Account account, double amount) {
+        final Double balance = account.getBalance();
+        account.setBalance(balance + amount);
+    }
+
 }

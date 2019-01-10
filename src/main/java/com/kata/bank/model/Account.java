@@ -11,4 +11,5 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+
 }

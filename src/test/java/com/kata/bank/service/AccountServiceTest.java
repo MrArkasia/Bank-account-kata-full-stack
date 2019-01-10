@@ -29,4 +29,15 @@ public class AccountServiceTest {
         assertEquals(balance, 0.0, 0.0);
     }
 
+    @Test
+    public void shouldReturnPositiveAccountBalance() {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.deposit(account, 1.0);
+        final Double actual = account.getBalance();
+        // Then
+        assertEquals((Double)1.0, actual);
+    }
+
 }

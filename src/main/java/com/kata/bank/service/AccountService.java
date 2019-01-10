@@ -6,4 +6,5 @@ interface AccountService {
 
     Account create();
 
+    void deposit(Account account, double v);
 }
