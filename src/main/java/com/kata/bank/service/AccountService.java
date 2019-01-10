@@ -8,4 +8,5 @@ interface AccountService {
 
     void deposit(Account account, Double amount) throws OperationException;
 
+    void withdrawal(Account account, Double amount) throws OperationException;
 }

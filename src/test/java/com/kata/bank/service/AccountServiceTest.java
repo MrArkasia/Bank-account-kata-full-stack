@@ -30,7 +30,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void shouldReturnPositiveAccountBalance() throws OperationException {
+    public void shouldReturnPositiveBalanceAfterDeposit() throws OperationException {
         // Given
         final Account account = accountService.create();
         // When
@@ -40,7 +40,7 @@ public class AccountServiceTest {
     }
 
     @Test(expected = OperationException.class)
-    public void shouldReturnAccountExceptionWhenDepositNegativeAmount() throws OperationException {
+    public void shouldReturnExceptionWhenDepositNegativeAmount() throws OperationException {
         // Given
         final Account account = accountService.create();
         // When
@@ -50,11 +50,52 @@ public class AccountServiceTest {
     }
 
     @Test(expected = OperationException.class)
-    public void shouldReturnAccountExceptionWhenDepositNullAmount() throws OperationException {
+    public void shouldReturnExceptionWhenDepositNullAmount() throws OperationException {
         // Given
         final Account account = accountService.create();
         // When
         accountService.deposit(account, null);
+        // Then
+        // new AccountException
+    }
+
+    @Test
+    public void shouldReturnPositiveBalanceAfterWithdrawal() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        account.setBalance(100.0);
+        // When
+        accountService.withdrawal(account, 30.0);
+        // Then
+        assertEquals((Double) 70.0, account.getBalance());
+    }
+
+    @Test(expected = OperationException.class)
+    public void shouldReturnExceptionWhenWithdrawalNegativeAmount() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.withdrawal(account, -1.0);
+        // Then
+        // new AccountException
+    }
+
+    @Test(expected = OperationException.class)
+    public void shouldReturnExceptionWhenWithdrawalNullAmount() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.withdrawal(account, null);
+        // Then
+        // new AccountException
+    }
+
+    @Test(expected = OperationException.class)
+    public void shouldReturnExceptionForWithdrawalWhenNoMoney() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.withdrawal(account, 1.0);
         // Then
         // new AccountException
     }

@@ -21,8 +21,21 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    public boolean isValidAmount(Double amount) {
+    @Override
+    public void withdrawal(Account account, Double amount) throws OperationException {
+        if (isValidAmount(amount) && isValidWithdrawal(account.getBalance(), amount)) {
+            account.setBalance(account.getBalance() - amount);
+        } else {
+            throw new OperationException();
+        }
+    }
+
+    private boolean isValidAmount(Double amount) {
         return amount != null && amount >= 0.0;
+    }
+
+    private boolean isValidWithdrawal(Double accountAmount, Double amount) {
+        return accountAmount - amount >= 0.0;
     }
 
 }
