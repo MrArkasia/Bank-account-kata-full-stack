@@ -1,16 +1,16 @@
-package com.kata.bank.dao;
+package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AccountDaoImplTest {
+public class AccountServiceTest {
 
     @Test
     public void shouldReturnZeroBalance() {
         // Given
-        final AccountDao accountDao = new AccountDaoImpl();
+        final AccountService accountDao = new AccountService();
         // When
         final Account account = accountDao.create();
         final Double balance = account.getBalance();

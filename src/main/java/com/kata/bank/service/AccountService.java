@@ -1,10 +1,9 @@
-package com.kata.bank.dao;
+package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
 
-public class AccountDaoImpl implements AccountDao {
+public class AccountService {
 
-    @Override
     public Account create() {
         final Account account = new Account();
         account.setBalance(0.0);
