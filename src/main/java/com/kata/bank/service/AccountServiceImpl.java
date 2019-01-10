@@ -21,8 +21,12 @@ public class AccountServiceImpl implements AccountService {
     public void deposit(Account account, Double amount) throws OperationException {
         if (isAmountValid(amount)) {
             account.setBalance(account.getBalance() + amount);
-            final Operation operation = new Operation(OperationType.DEPOSIT, new Date(), account.getBalance(), amount);
-            historize(account, operation);
+            Operation operation = Operation.builder()
+                    .type(OperationType.DEPOSIT)
+                    .balance(account.getBalance())
+                    .amount(amount)
+                    .build();
+            putInHistory(account, operation);
         } else {
             throw new OperationException();
         }
@@ -32,8 +36,12 @@ public class AccountServiceImpl implements AccountService {
     public void withdrawal(Account account, Double amount) throws OperationException {
         if (isAmountValid(amount) && isWithdrawalAllowed(account.getBalance(), amount)) {
             account.setBalance(account.getBalance() - amount);
-            final Operation operation = new Operation(OperationType.WITHDRAWAL, new Date(), account.getBalance(), amount);
-            historize(account, operation);
+            Operation operation = Operation.builder()
+                    .type(OperationType.WITHDRAWAL)
+                    .balance(account.getBalance())
+                    .amount(amount)
+                    .build();
+            putInHistory(account, operation);
         } else {
             throw new OperationException();
         }
@@ -44,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
         return account.getHistory();
     }
 
-    private void historize(Account account, Operation operation) {
+    private void putInHistory(Account account, Operation operation) {
         account.getHistory().add(operation);
     }
 

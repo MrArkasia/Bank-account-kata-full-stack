@@ -124,6 +124,7 @@ public class AccountServiceTest {
 
         // Then
         assertThat(account.getBalance()).isEqualTo(90.5);
+
     }
 
     @Test
@@ -134,7 +135,7 @@ public class AccountServiceTest {
         accountService.withdrawal(account, 20.0);
         accountService.deposit(account, 50.5);
         accountService.withdrawal(account, 40.0);
-        final List<Operation> history = accountService.getHistory(account);
+        List<Operation> history = accountService.getHistory(account);
 
         // Then
         assertThat(history.size()).isEqualTo(4);
