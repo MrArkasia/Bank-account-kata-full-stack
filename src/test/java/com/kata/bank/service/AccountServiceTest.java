@@ -30,14 +30,23 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void shouldReturnPositiveAccountBalance() {
+    public void shouldReturnPositiveAccountBalance() throws OperationException {
         // Given
         final Account account = accountService.create();
         // When
         accountService.deposit(account, 1.0);
-        final Double actual = account.getBalance();
         // Then
-        assertEquals((Double)1.0, actual);
+        assertEquals((Double)1.0, account.getBalance());
+    }
+
+    @Test(expected = OperationException.class)
+    public void shouldReturnAccountExceptionWhenDepositNegativeAmount() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.deposit(account, -1.0);
+        // Then
+        // new AccountException
     }
 
 }

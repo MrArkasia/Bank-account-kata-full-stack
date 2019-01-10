@@ -13,9 +13,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deposit(Account account, double amount) {
-        final Double balance = account.getBalance();
-        account.setBalance(balance + amount);
+    public void deposit(Account account, double amount) throws OperationException {
+        if (amount >= 0.0) {
+            final Double balance = account.getBalance();
+            account.setBalance(balance + amount);
+        } else {
+            throw new OperationException();
+        }
     }
 
 }
