@@ -5,11 +5,19 @@ import java.util.UUID;
 
 public class Operation {
 
-    private UUID id;
-    private OperationType type;
-    private Date date;
-    private Double amount;
-    private Double balance;
+    private final UUID id;
+    private final OperationType type;
+    private final Date date;
+    private final Double amount;
+    private final Double balance;
+
+    public Operation(OperationType type, Date date, Double amount, Double balance) {
+        this.id = UUID.randomUUID();
+        this.type = type;
+        this.date = date;
+        this.amount = amount;
+        this.balance = balance;
+    }
 
     public UUID getId() {
         return id;
@@ -30,4 +38,5 @@ public class Operation {
     public Double getBalance() {
         return balance;
     }
+
 }
