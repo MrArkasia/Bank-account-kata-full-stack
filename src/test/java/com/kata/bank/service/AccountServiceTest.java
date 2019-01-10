@@ -36,7 +36,7 @@ public class AccountServiceTest {
         // When
         accountService.deposit(account, 1.0);
         // Then
-        assertEquals((Double)1.0, account.getBalance());
+        assertEquals((Double) 1.0, account.getBalance());
     }
 
     @Test(expected = OperationException.class)
@@ -45,6 +45,16 @@ public class AccountServiceTest {
         final Account account = accountService.create();
         // When
         accountService.deposit(account, -1.0);
+        // Then
+        // new AccountException
+    }
+
+    @Test(expected = OperationException.class)
+    public void shouldReturnAccountExceptionWhenDepositNullAmount() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.deposit(account, null);
         // Then
         // new AccountException
     }

@@ -6,6 +6,6 @@ interface AccountService {
 
     Account create();
 
-    void deposit(Account account, double v) throws OperationException;
+    void deposit(Account account, Double amount) throws OperationException;
 
 }
