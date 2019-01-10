@@ -1,7 +1,10 @@
 package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
+import com.kata.bank.model.Operation;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -28,6 +31,11 @@ public class AccountServiceImpl implements AccountService {
         } else {
             throw new OperationException();
         }
+    }
+
+    @Override
+    public List<Operation> getHistory(Account account) {
+        return null;
     }
 
     private boolean isValidAmount(Double amount) {

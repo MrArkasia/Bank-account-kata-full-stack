@@ -1,12 +1,15 @@
 package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
+import com.kata.bank.model.Operation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -98,6 +101,33 @@ public class AccountServiceTest {
         accountService.withdrawal(account, 1.0);
         // Then
         // new AccountException
+    }
+
+    @Test
+    public void shouldReturnBalanceWhenAfterOperations() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.deposit(account, 100.0);
+        accountService.withdrawal(account, 20.0);
+        accountService.deposit(account, 50.5);
+        accountService.withdrawal(account, 40.0);
+        // Then
+        assertEquals((Double) 90.5, account.getBalance());
+    }
+
+    @Test
+    public void shouldReturnAccountHistory() throws OperationException {
+        // Given
+        final Account account = accountService.create();
+        // When
+        accountService.deposit(account, 100.0);
+        accountService.withdrawal(account, 20.0);
+        accountService.deposit(account, 50.5);
+        accountService.withdrawal(account, 40.0);
+        final List<Operation> history = accountService.getHistory(account);
+        // Then
+        assertEquals(4, history.size());
     }
 
 }
