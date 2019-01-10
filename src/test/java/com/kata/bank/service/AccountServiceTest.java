@@ -2,17 +2,27 @@ package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Import(AccountServiceConfig.class)
 public class AccountServiceTest {
+
+    @Autowired
+    AccountService accountService;
 
     @Test
     public void shouldReturnZeroBalance() {
         // Given
-        final AccountService accountDao = new AccountService();
+        final Account account = accountService.create();
         // When
-        final Account account = accountDao.create();
         final Double balance = account.getBalance();
         // Then
         assertNotNull(balance);

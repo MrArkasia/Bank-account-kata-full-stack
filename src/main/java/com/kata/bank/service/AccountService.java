@@ -2,12 +2,8 @@ package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
 
-public class AccountService {
+interface AccountService {
 
-    public Account create() {
-        final Account account = new Account();
-        account.setBalance(0.0);
-        return account;
-    }
+    Account create();
 
 }
