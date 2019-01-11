@@ -1,6 +1,6 @@
 # Bank-account-kata-full-stack
 
-This project is a kata made with TDD process. The program simulates a bank account.
+This project is a kata made with TDD method. The program simulates a bank account.
 
 ## Getting Started
 
