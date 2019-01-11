@@ -5,11 +5,10 @@ import com.kata.bank.model.Operation;
 import com.kata.bank.model.OperationType;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class AccountServiceImpl implements AccountService {
+public class OperationServiceImpl implements OperationService {
 
     public Account create() {
         final Account account = new Account();

@@ -5,7 +5,7 @@ import com.kata.bank.model.Operation;
 
 import java.util.List;
 
-interface AccountService {
+interface OperationService {
 
     Account create();
 
