@@ -26,7 +26,7 @@ public class OperationServiceTest {
 
     @Before
     public void initialize() {
-        account = operationService.create();
+        account = operationService.createAccount();
     }
 
     @Test
@@ -176,6 +176,14 @@ public class OperationServiceTest {
         assertThat(account)
                 .isNotNull()
                 .extracting("balance").contains(90.5);
+    }
+
+    @Test
+    public void shouldReturnAllAccountsOfRepository() {
+        List<Account> accounts = operationService.getAll();
+        assertThat(accounts)
+                .isNotNull()
+                .hasSize(1);
     }
 
 }

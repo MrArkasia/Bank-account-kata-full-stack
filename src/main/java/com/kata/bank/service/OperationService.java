@@ -7,12 +7,14 @@ import java.util.List;
 
 interface OperationService {
 
-    Account create();
+    Account createAccount();
 
     void deposit(Account account, Double amount) throws OperationException;
 
     void withdrawal(Account account, Double amount) throws OperationException;
 
     List<Operation> getHistory(Account account);
+
+    List<Account> getAll();
 
 }

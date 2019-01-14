@@ -16,7 +16,7 @@ public class OperationServiceImpl implements OperationService {
     AccountRepository accountRepository;
 
     @Override
-    public Account create() {
+    public Account createAccount() {
         final Account account = new Account();
         account.setBalance(0.0);
         accountRepository.save(account);
@@ -56,6 +56,11 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<Operation> getHistory(Account account) {
         return account.getHistory();
+    }
+
+    @Override
+    public List<Account> getAll() {
+        return null;
     }
 
     private void putInHistory(Account account, Operation operation) {
