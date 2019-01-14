@@ -20,13 +20,13 @@ import static org.assertj.core.api.Assertions.*;
 public class OperationServiceTest {
 
     @Autowired
-    OperationService accountService;
+    private OperationService operationService;
 
     private Account account;
 
     @Before
     public void initialize() {
-        account = accountService.create();
+        account = operationService.create();
     }
 
     @Test
@@ -49,7 +49,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.deposit(account, 1.0);
+        operationService.deposit(account, 1.0);
 
         // Then
         assertThat(account)
@@ -64,7 +64,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.deposit(account, -1.0);
+        operationService.deposit(account, -1.0);
 
         // Then
         // new AccountException
@@ -77,7 +77,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.deposit(account, null);
+        operationService.deposit(account, null);
 
         // Then
         // new AccountException
@@ -90,7 +90,7 @@ public class OperationServiceTest {
         account.setBalance(100.0);
 
         // When
-        accountService.withdrawal(account, 30.0);
+        operationService.withdrawal(account, 30.0);
 
         // Then
         assertThat(account)
@@ -105,7 +105,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.withdrawal(account, -1.0);
+        operationService.withdrawal(account, -1.0);
 
         // Then
         // new AccountException
@@ -118,7 +118,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.withdrawal(account, null);
+        operationService.withdrawal(account, null);
 
         // Then
         // new AccountException
@@ -131,7 +131,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.withdrawal(account, 1.0);
+        operationService.withdrawal(account, 1.0);
 
         // Then
         // new AccountException
@@ -144,11 +144,11 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.deposit(account, 100.0);
-        accountService.withdrawal(account, 20.0);
-        accountService.deposit(account, 50.5);
-        accountService.withdrawal(account, 40.0);
-        List<Operation> history = accountService.getHistory(account);
+        operationService.deposit(account, 100.0);
+        operationService.withdrawal(account, 20.0);
+        operationService.deposit(account, 50.5);
+        operationService.withdrawal(account, 40.0);
+        List<Operation> history = operationService.getHistory(account);
 
         // Then
         assertThat(history)
@@ -163,11 +163,11 @@ public class OperationServiceTest {
         // an account
 
         // When
-        accountService.deposit(account, 100.0);
-        accountService.withdrawal(account, 20.0);
-        accountService.deposit(account, 50.5);
-        accountService.withdrawal(account, 40.0);
-        List<Operation> history = accountService.getHistory(account);
+        operationService.deposit(account, 100.0);
+        operationService.withdrawal(account, 20.0);
+        operationService.deposit(account, 50.5);
+        operationService.withdrawal(account, 40.0);
+        List<Operation> history = operationService.getHistory(account);
 
         // Then
         assertThat(history)

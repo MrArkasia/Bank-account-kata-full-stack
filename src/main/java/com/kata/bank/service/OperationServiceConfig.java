@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class OperationServiceConfig {
 
     @Bean
-    public OperationService accountService() {
+    public OperationService operationService() {
         return new OperationServiceImpl();
     }
 

@@ -3,6 +3,8 @@ package com.kata.bank.service;
 import com.kata.bank.model.Account;
 import com.kata.bank.model.Operation;
 import com.kata.bank.model.OperationType;
+import com.kata.bank.persistance.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,14 @@ import java.util.List;
 @Service
 public class OperationServiceImpl implements OperationService {
 
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Override
     public Account create() {
         final Account account = new Account();
         account.setBalance(0.0);
+        accountRepository.save(account);
         return account;
     }
 
