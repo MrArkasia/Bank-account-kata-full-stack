@@ -21,7 +21,7 @@ public class Account {
 
     @ElementCollection
     @Column(name = "history")
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Operation> history = new ArrayList<>();
 
 }

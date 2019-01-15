@@ -59,8 +59,8 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public List<Account> getAll() {
-        return null;
+    public List<Account> findAllAccounts() {
+        return accountRepository.findAll();
     }
 
     private void putInHistory(Account account, Operation operation) {

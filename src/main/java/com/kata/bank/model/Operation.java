@@ -22,8 +22,9 @@ public class Operation {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @Temporal(TemporalType.DATE)
-    private Date date = new Date();
+    //@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date")
+    private long date = new Date().getTime();
 
     @Enumerated
     @Column(name = "type")

@@ -15,6 +15,6 @@ interface OperationService {
 
     List<Operation> getHistory(Account account);
 
-    List<Account> getAll();
+    List<Account> findAllAccounts();
 
 }

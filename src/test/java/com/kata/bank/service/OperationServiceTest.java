@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,7 +26,8 @@ public class OperationServiceTest {
 
     @Before
     public void initialize() {
-        account = operationService.createAccount();
+        List<Account> accounts = operationService.findAllAccounts();
+        account = accounts.get(1);
     }
 
     @Test
@@ -180,10 +181,16 @@ public class OperationServiceTest {
 
     @Test
     public void shouldReturnAllAccountsOfRepository() {
-        List<Account> accounts = operationService.getAll();
+        // Given
+        // list of accounts
+
+        // When
+        List<Account> accounts = operationService.findAllAccounts();
+
+        // Then
         assertThat(accounts)
                 .isNotNull()
-                .hasSize(1);
+                .hasSize(2);
     }
 
 }

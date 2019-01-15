@@ -1,26 +1,17 @@
 package com.kata.bank.persistance;
 
 import com.kata.bank.model.Account;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
-public class AccountRepository {
+public interface AccountRepository extends CrudRepository<Account, Long> {
 
-    @PersistenceContext
-    private EntityManager em;
+    Account save(Account account);
 
-    public Account save(Account account) {
-        if (account.getId() == null) {
-            em.persist(account);
-            return account;
-        } else {
-            return em.merge(account);
-        }
-    }
-
+    List<Account> findAll();
 }
