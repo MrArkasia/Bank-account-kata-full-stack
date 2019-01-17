@@ -16,31 +16,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(OperationServiceConfig.class)
+@Import(ServicesConfig.class)
 public class OperationServiceTest {
 
     @Autowired
     private OperationService operationService;
 
-    private Account account;
+    @Autowired
+    private AccountService accountService;
+
+    private Integer accountId;
 
     @Before
     public void initialize() {
-        List<Account> accounts = operationService.findAllAccounts();
-        account = accounts.get(1);
-    }
-
-    @Test
-    public void shouldReturnZeroBalance() {
-
-        // Given
-        // an account
-
-        // When
-        final Double balance = account.getBalance();
-
-        // Then
-        assertThat(balance).isEqualTo(0.0);
+        accountService.deleteAll();
+        accountId = accountService.create();
     }
 
     @Test
@@ -50,12 +40,13 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(account, 1.0);
+        operationService.deposit(accountId, 1.0);
+        Double balance = accountService.getBalance(accountId);
 
         // Then
-        assertThat(account)
+        assertThat(balance)
                 .isNotNull()
-                .extracting("balance").contains(1.0);
+                .isEqualTo(1.0);
     }
 
     @Test(expected = OperationException.class)
@@ -65,7 +56,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(account, -1.0);
+        operationService.deposit(accountId, -1.0);
 
         // Then
         // new AccountException
@@ -78,25 +69,26 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(account, null);
+        operationService.deposit(accountId, null);
 
         // Then
         // new AccountException
     }
 
     @Test
-    public void shouldThrowPositiveBalanceAfterWithdrawal() throws OperationException {
+    public void shouldReturnPositiveBalanceAfterWithdrawal() throws OperationException {
 
         // Given
-        account.setBalance(100.0);
+        operationService.deposit(accountId, 100.0);
 
         // When
-        operationService.withdrawal(account, 30.0);
+        operationService.withdrawal(accountId, 30.0);
+        Double balance = accountService.getBalance(accountId);
 
         // Then
-        assertThat(account)
+        assertThat(balance)
                 .isNotNull()
-                .extracting("balance").contains(70.0);
+                .isEqualTo(70.0);
     }
 
     @Test(expected = OperationException.class)
@@ -106,7 +98,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.withdrawal(account, -1.0);
+        operationService.withdrawal(accountId, -1.0);
 
         // Then
         // new AccountException
@@ -119,7 +111,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.withdrawal(account, null);
+        operationService.withdrawal(accountId, null);
 
         // Then
         // new AccountException
@@ -132,7 +124,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.withdrawal(account, 1.0);
+        operationService.withdrawal(accountId, 1.0);
 
         // Then
         // new AccountException
@@ -145,11 +137,11 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(account, 100.0);
-        operationService.withdrawal(account, 20.0);
-        operationService.deposit(account, 50.5);
-        operationService.withdrawal(account, 40.0);
-        List<Operation> history = operationService.getHistory(account);
+        operationService.deposit(accountId, 100.0);
+        operationService.withdrawal(accountId, 20.0);
+        operationService.deposit(accountId, 50.5);
+        operationService.withdrawal(accountId, 40.0);
+        List<Operation> history = accountService.getHistory(accountId);
 
         // Then
         assertThat(history)
@@ -164,11 +156,12 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(account, 100.0);
-        operationService.withdrawal(account, 20.0);
-        operationService.deposit(account, 50.5);
-        operationService.withdrawal(account, 40.0);
-        List<Operation> history = operationService.getHistory(account);
+        operationService.deposit(accountId, 100.0);
+        operationService.withdrawal(accountId, 20.0);
+        operationService.deposit(accountId, 50.5);
+        operationService.withdrawal(accountId, 40.0);
+        Account account = accountService.find(accountId);
+        List<Operation> history = accountService.getHistory(accountId);
 
         // Then
         assertThat(history)
@@ -177,20 +170,6 @@ public class OperationServiceTest {
         assertThat(account)
                 .isNotNull()
                 .extracting("balance").contains(90.5);
-    }
-
-    @Test
-    public void shouldReturnAllAccountsOfRepository() {
-        // Given
-        // list of accounts
-
-        // When
-        List<Account> accounts = operationService.findAllAccounts();
-
-        // Then
-        assertThat(accounts)
-                .isNotNull()
-                .hasSize(2);
     }
 
 }

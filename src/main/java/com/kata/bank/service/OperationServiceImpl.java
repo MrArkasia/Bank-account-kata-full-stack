@@ -3,28 +3,21 @@ package com.kata.bank.service;
 import com.kata.bank.model.Account;
 import com.kata.bank.model.Operation;
 import com.kata.bank.model.OperationType;
-import com.kata.bank.persistance.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class OperationServiceImpl implements OperationService {
 
     @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
 
     @Override
-    public Account createAccount() {
-        final Account account = new Account();
-        account.setBalance(0.0);
-        accountRepository.save(account);
-        return account;
-    }
-
-    @Override
-    public void deposit(Account account, Double amount) throws OperationException {
+    public void deposit(Integer accountId, Double amount) throws OperationException {
+        Account account = accountService.find(accountId);
         if (isAmountValid(amount)) {
             account.setBalance(account.getBalance() + amount);
             Operation operation = Operation.builder()
@@ -32,14 +25,16 @@ public class OperationServiceImpl implements OperationService {
                     .balance(account.getBalance())
                     .amount(amount)
                     .build();
-            putInHistory(account, operation);
+            account.getHistory().add(operation);
+            accountService.save(account);
         } else {
             throw new OperationException();
         }
     }
 
     @Override
-    public void withdrawal(Account account, Double amount) throws OperationException {
+    public void withdrawal(Integer accountId, Double amount) throws OperationException {
+        Account account = accountService.find(accountId);
         if (isAmountValid(amount) && isWithdrawalAllowed(account.getBalance(), amount)) {
             account.setBalance(account.getBalance() - amount);
             Operation operation = Operation.builder()
@@ -47,24 +42,11 @@ public class OperationServiceImpl implements OperationService {
                     .balance(account.getBalance())
                     .amount(amount)
                     .build();
-            putInHistory(account, operation);
+            account.getHistory().add(operation);
+            accountService.save(account);
         } else {
             throw new OperationException();
         }
-    }
-
-    @Override
-    public List<Operation> getHistory(Account account) {
-        return account.getHistory();
-    }
-
-    @Override
-    public List<Account> findAllAccounts() {
-        return accountRepository.findAll();
-    }
-
-    private void putInHistory(Account account, Operation operation) {
-        account.getHistory().add(operation);
     }
 
     private boolean isAmountValid(Double amount) {

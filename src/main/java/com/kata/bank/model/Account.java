@@ -1,27 +1,36 @@
 package com.kata.bank.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
-@Table(name = "ACCOUNT")
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(exclude = {"history"})
+@Table(name = "account")
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "account_id")
     private Integer id;
 
+    @Setter
     @Column(name = "balance")
-    private Double balance = 0.0;
+    private Double balance;
 
     @ElementCollection
     @Column(name = "history")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Operation> history = new ArrayList<>();
+
+    @PrePersist
+    void createdAt() {
+        this.balance = 0.0;
+    }
 
 }

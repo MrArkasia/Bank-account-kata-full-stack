@@ -1,30 +1,28 @@
 package com.kata.bank.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @Entity
+@Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "OPERATION")
+@NoArgsConstructor
+@Table(name = "operation")
 public class Operation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "operation_id", nullable = false, unique = true)
+    @Column(name = "operation_id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
-    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
-    private long date = new Date().getTime();
+    private long date;
 
     @Enumerated
     @Column(name = "type")
@@ -35,5 +33,10 @@ public class Operation {
 
     @Column(name = "balance")
     private Double balance;
+
+    @PrePersist
+    void createdAt() {
+        this.date = new Date().getTime();
+    }
 
 }

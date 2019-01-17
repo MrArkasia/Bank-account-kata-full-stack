@@ -11,7 +11,8 @@ import java.util.List;
 @Transactional
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
-    Account save(Account account);
+    void deleteById(Integer id);
 
-    List<Account> findAll();
+    List<Account> findById(Integer id);
+
 }
