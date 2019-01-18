@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +43,7 @@ public class AccountControllerTest {
         // Account rest service
 
         // When
-        ResultActions resultActions = mvc.perform(get("/account/create"));
+        ResultActions resultActions = mvc.perform(post("/account/create"));
 
         // Then
         resultActions
@@ -55,12 +56,13 @@ public class AccountControllerTest {
 
         // Given
         // Account rest service
-        ResultActions createResultActions = mvc.perform(get("/account/create"));
+        ResultActions createResultActions = mvc.perform(post("/account/create"));
         String idStr = createResultActions.andReturn().getResponse().getContentAsString();
         Integer id = new Integer(idStr);
 
         // When
-        ResultActions resultActions = mvc.perform(get("/account/get/" + id));
+        ResultActions resultActions = mvc.perform(get("/account/get/")
+                .param("id", id.toString()));
 
         // Then
         resultActions
@@ -73,13 +75,17 @@ public class AccountControllerTest {
 
         // Given
         // Account rest service
-        ResultActions createResultActions = mvc.perform(get("/account/create"));
+        ResultActions createResultActions = mvc.perform(post("/account/create"));
         String idStr = createResultActions.andReturn().getResponse().getContentAsString();
         Integer id = new Integer(idStr);
 
         // When
-        ResultActions depositResultActions = mvc.perform(get("/account/deposit/" + id + "/100"));
-        ResultActions getResultActions = mvc.perform(get("/account/get/" + id));
+        ResultActions depositResultActions = mvc.perform(post("/account/deposit")
+                .param("id", id.toString())
+                .param("amount", "100"));
+
+        ResultActions getResultActions = mvc.perform(get("/account/get")
+                .param("id", id.toString()));
 
         // Then
         depositResultActions

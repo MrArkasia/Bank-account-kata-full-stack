@@ -5,10 +5,7 @@ import com.kata.bank.service.AccountService;
 import com.kata.bank.service.OperationException;
 import com.kata.bank.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
@@ -20,19 +17,27 @@ public class AccountController {
     @Autowired
     private OperationService operationService;
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public Integer create() {
         return accountService.create();
     }
 
-    @GetMapping("/get/{id}")
-    public Account get(@PathVariable Integer id) {
+    @GetMapping("/get")
+    public Account get(@RequestParam Integer id) {
         return accountService.find(id);
     }
 
-    @GetMapping("/deposit/{id}/{amount}")
-    public void deposit(@PathVariable Integer id, @PathVariable Double amount) throws OperationException {
+    @PostMapping("/deposit")
+    public void deposit(@RequestParam Integer id, @RequestParam Double amount) throws OperationException {
         operationService.deposit(id, amount);
+    }
+
+    @PostMapping("/withdrawal")
+    public void withdrawal(
+            @RequestParam(value = "id") Integer id,
+            @RequestParam(value = "amount") Double amount) throws OperationException {
+
+        operationService.withdrawal(id, amount);
     }
 
 }
