@@ -68,4 +68,26 @@ public class AccountControllerTest {
                 .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0,\"history\":[]}")));
     }
 
+    @Test
+    public void shouldAccountHasUpgradeBalance() throws Exception {
+
+        // Given
+        // Account rest service
+        ResultActions createResultActions = mvc.perform(get("/account/create"));
+        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
+        Integer id = new Integer(idStr);
+
+        // When
+        ResultActions depositResultActions = mvc.perform(get("/account/deposit/" + id + "/100"));
+        ResultActions getResultActions = mvc.perform(get("/account/get/" + id));
+
+        // Then
+        depositResultActions
+                .andExpect(status().isOk());
+
+        getResultActions
+                .andExpect(status().isOk())
+                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":100.0,\"history\":[]}")));
+    }
+
 }

@@ -26,4 +26,8 @@ public class AccountController {
         return accountService.find(accountId);
     }
 
+    @GetMapping("/deposit/{id}/{amount}")
+    public void deposit() {
+    }
+
 }
