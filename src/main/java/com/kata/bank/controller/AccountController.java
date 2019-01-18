@@ -38,8 +38,9 @@ public class AccountController {
     @PostMapping("/withdrawal")
     public void withdrawal(
             @RequestParam(value = "id") Integer id,
-            @RequestParam(value = "amount") Double amount) {
+            @RequestParam(value = "amount") Double amount) throws OperationException {
 
+        operationService.withdrawal(id, amount);
     }
 
 }
