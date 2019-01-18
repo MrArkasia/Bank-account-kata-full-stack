@@ -71,7 +71,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void shouldAccountHasUpgradeBalance() throws Exception {
+    public void shouldReturnAccountWithBalanceDeposited() throws Exception {
 
         // Given
         // Account rest service
@@ -94,6 +94,35 @@ public class AccountControllerTest {
         getResultActions
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":100.0}")));
+    }
+
+    @Test
+    public void shouldReturnAccountWithBalanceWithdrawal() throws Exception {
+
+        // Given
+        // Account rest service
+        ResultActions createResultActions = mvc.perform(post("/account/create"));
+        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
+        Integer id = new Integer(idStr);
+        mvc.perform(post("/account/deposit")
+                .param("id", id.toString())
+                .param("amount", "100"));
+
+        // When
+        ResultActions depositResultActions = mvc.perform(post("/account/withdrawal")
+                .param("id", id.toString())
+                .param("amount", "30"));
+
+        ResultActions getResultActions = mvc.perform(get("/account/get")
+                .param("id", id.toString()));
+
+        // Then
+        depositResultActions
+                .andExpect(status().isOk());
+
+        getResultActions
+                .andExpect(status().isOk())
+                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":70.0}")));
     }
 
 }

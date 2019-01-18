@@ -28,16 +28,18 @@ public class AccountController {
     }
 
     @PostMapping("/deposit")
-    public void deposit(@RequestParam Integer id, @RequestParam Double amount) throws OperationException {
+    public void deposit(
+            @RequestParam Integer id,
+            @RequestParam Double amount) throws OperationException {
+
         operationService.deposit(id, amount);
     }
 
     @PostMapping("/withdrawal")
     public void withdrawal(
             @RequestParam(value = "id") Integer id,
-            @RequestParam(value = "amount") Double amount) throws OperationException {
+            @RequestParam(value = "amount") Double amount) {
 
-        operationService.withdrawal(id, amount);
     }
 
 }
