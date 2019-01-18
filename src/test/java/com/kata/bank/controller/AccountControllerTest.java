@@ -27,7 +27,7 @@ public class AccountControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void create() throws Exception {
+    public void shouldReturnNewAccountId() throws Exception {
 
         // Given
         // Account rest service
