@@ -1,5 +1,6 @@
 package com.kata.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Account {
     private Double balance;
 
     @ElementCollection
+    @JsonIgnore
     @Column(name = "history")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Operation> history = new ArrayList<>();

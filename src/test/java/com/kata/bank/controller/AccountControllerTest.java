@@ -65,7 +65,7 @@ public class AccountControllerTest {
         // Then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0,\"history\":[]}")));
+                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0}")));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class AccountControllerTest {
 
         getResultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":100.0,\"history\":[]}")));
+                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":100.0}")));
     }
 
 }
