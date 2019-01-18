@@ -2,14 +2,14 @@ package com.kata.bank.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
-@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = {"history"})
