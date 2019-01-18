@@ -54,6 +54,7 @@ public class AccountControllerTest {
     public void shouldReturnAccount() throws Exception {
 
         // Given
+        // Account rest service
         ResultActions createResultActions = mvc.perform(get("/account/create"));
         String idStr = createResultActions.andReturn().getResponse().getContentAsString();
         Integer id = new Integer(idStr);
@@ -66,4 +67,5 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0,\"history\":[]}")));
     }
+
 }
