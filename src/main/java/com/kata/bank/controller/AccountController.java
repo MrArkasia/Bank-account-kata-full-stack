@@ -4,6 +4,7 @@ import com.kata.bank.model.Account;
 import com.kata.bank.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +21,9 @@ public class AccountController {
     }
 
     @GetMapping("/get/{id}")
-    public Account get() {
-        return null;
+    public Account get(@PathVariable String id) {
+        Integer accountId = new Integer(id);
+        return accountService.find(accountId);
     }
 
 }
