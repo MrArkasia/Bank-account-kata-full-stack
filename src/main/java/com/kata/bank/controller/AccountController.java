@@ -1,11 +1,14 @@
 package com.kata.bank.controller;
 
 import com.kata.bank.model.Account;
+import com.kata.bank.model.Operation;
 import com.kata.bank.service.AccountService;
 import com.kata.bank.service.OperationException;
 import com.kata.bank.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/account")
@@ -18,11 +21,13 @@ public class AccountController {
     private OperationService operationService;
 
     @PostMapping("/create")
+    @ResponseBody
     public Integer create() {
         return accountService.create();
     }
 
     @GetMapping("/get")
+    @ResponseBody
     public Account get(@RequestParam Integer id) {
         return accountService.find(id);
     }
@@ -41,6 +46,14 @@ public class AccountController {
             @RequestParam(value = "amount") Double amount) throws OperationException {
 
         operationService.withdrawal(id, amount);
+    }
+
+    @GetMapping("/history")
+    @ResponseBody
+    public List<Operation> history(
+            @RequestParam(value = "id") Integer id) {
+
+        return null;
     }
 
 }

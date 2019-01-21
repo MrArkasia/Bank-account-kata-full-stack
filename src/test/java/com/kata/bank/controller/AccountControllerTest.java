@@ -109,7 +109,7 @@ public class AccountControllerTest {
                 .param("amount", "100"));
 
         // When
-        ResultActions depositResultActions = mvc.perform(post("/account/withdrawal")
+        ResultActions withdrawalResultActions = mvc.perform(post("/account/withdrawal")
                 .param("id", id.toString())
                 .param("amount", "30"));
 
@@ -117,12 +117,42 @@ public class AccountControllerTest {
                 .param("id", id.toString()));
 
         // Then
-        depositResultActions
+        withdrawalResultActions
                 .andExpect(status().isOk());
 
         getResultActions
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":70.0}")));
+    }
+
+    @Test
+    public void shouldReturnAccountHistory() throws Exception {
+
+        // Given
+        // Account rest service
+        ResultActions createResultActions = mvc.perform(post("/account/create"));
+        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
+        Integer id = new Integer(idStr);
+
+        mvc.perform(post("/account/deposit")
+                .param("id", id.toString())
+                .param("amount", "100"));
+
+        mvc.perform(post("/account/deposit")
+                .param("id", id.toString())
+                .param("amount", "100"));
+
+        // When
+        ResultActions resultActions = mvc.perform(get("/account/history")
+                .param("id", id.toString()));
+
+        // Then
+        resultActions
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString().matches("^[" +
+                "{\"id\":1,\"date\":[0-9]+,\"type\":\"DEPOSIT\",\"amount\":100.0,\"balance\":100.0}," +
+                "{\"id\":2,\"date\":[0-9]+,\"type\":\"DEPOSIT\",\"amount\":100.0,\"balance\":200.0}" +
+                "]$");
     }
 
 }
