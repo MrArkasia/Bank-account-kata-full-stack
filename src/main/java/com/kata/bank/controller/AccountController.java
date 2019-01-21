@@ -53,7 +53,7 @@ public class AccountController {
     public List<Operation> history(
             @RequestParam(value = "id") Integer id) {
 
-        return null;
+        return accountService.getHistory(id);
     }
 
 }
