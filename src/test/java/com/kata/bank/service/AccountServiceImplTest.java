@@ -72,7 +72,7 @@ public class AccountServiceImplTest {
         operationService.withdrawal(accountId, 40.0);
 
         // When
-        List<Operation> operations = accountService.getHistory(accountId);
+        List<Operation> operations = operationService.getHistory(accountId);
 
         // Then
         assertThat(operations)

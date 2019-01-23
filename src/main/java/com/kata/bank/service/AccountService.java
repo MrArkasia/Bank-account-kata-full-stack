@@ -1,26 +1,52 @@
 package com.kata.bank.service;
 
 import com.kata.bank.model.Account;
-import com.kata.bank.model.Operation;
+import com.kata.bank.persistance.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public interface AccountService {
+public class AccountService {
 
-    Integer create();
+    @Autowired
+    AccountRepository accountRepository;
 
-    void delete(Integer id);
+    public Integer create() {
+        final Account account = new Account();
+        accountRepository.save(account);
+        return account.getId();
+    }
 
-    void deleteAll();
+    public void delete(Integer id) {
+        accountRepository.deleteById(id);
+    }
 
-    Account find(Integer id);
+    public void deleteAll() {
+        accountRepository.deleteAll();
+    }
 
-    Iterable<Account> findAll();
+    public Account find(Integer id) {
+        List<Account> accounts = accountRepository.findById(id);
+        if (accounts != null && accounts.size() == 1) {
+            return accounts.get(0);
+        }
+        return null;
+    }
 
-    List<Operation> getHistory(Integer id);
+    public Double getBalance(Integer id) {
+        Account account = this.find(id);
+        if (account != null) {
+            return account.getBalance();
+        }
+        return null;
+    }
 
-    Double getBalance(Integer id);
+    public void save(Account account) {
+        accountRepository.save(account);
+    }
 
-    void save(Account account);
+    public Iterable<Account> findAll() {
+        return accountRepository.findAll();
+    }
 
 }

@@ -141,7 +141,7 @@ public class OperationServiceTest {
         operationService.withdrawal(accountId, 20.0);
         operationService.deposit(accountId, 50.5);
         operationService.withdrawal(accountId, 40.0);
-        List<Operation> history = accountService.getHistory(accountId);
+        List<Operation> history = operationService.getHistory(accountId);
 
         // Then
         assertThat(history)
@@ -161,7 +161,7 @@ public class OperationServiceTest {
         operationService.deposit(accountId, 50.5);
         operationService.withdrawal(accountId, 40.0);
         Account account = accountService.find(accountId);
-        List<Operation> history = accountService.getHistory(accountId);
+        List<Operation> history = operationService.getHistory(accountId);
 
         // Then
         assertThat(history)

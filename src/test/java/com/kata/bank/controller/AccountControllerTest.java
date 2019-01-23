@@ -43,7 +43,7 @@ public class AccountControllerTest {
         // Account rest service
 
         // When
-        ResultActions resultActions = mvc.perform(post("/account/create"));
+        ResultActions resultActions = mvc.perform(post("/account"));
 
         // Then
         resultActions
@@ -56,103 +56,20 @@ public class AccountControllerTest {
 
         // Given
         // Account rest service
-        ResultActions createResultActions = mvc.perform(post("/account/create"));
+        ResultActions createResultActions = mvc.perform(post("/account"));
         String idStr = createResultActions.andReturn().getResponse().getContentAsString();
         Integer id = new Integer(idStr);
 
         // When
-        ResultActions resultActions = mvc.perform(get("/account/get/")
-                .param("id", id.toString()));
+        ResultActions resultActions = mvc.perform(get("/account")
+                .param("accountId", id.toString()));
 
         // Then
+        createResultActions
+                .andExpect(status().isOk());
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0}")));
-    }
-
-    @Test
-    public void shouldReturnAccountWithBalanceDeposited() throws Exception {
-
-        // Given
-        // Account rest service
-        ResultActions createResultActions = mvc.perform(post("/account/create"));
-        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
-        Integer id = new Integer(idStr);
-
-        // When
-        ResultActions depositResultActions = mvc.perform(post("/account/deposit")
-                .param("id", id.toString())
-                .param("amount", "100"));
-
-        ResultActions getResultActions = mvc.perform(get("/account/get")
-                .param("id", id.toString()));
-
-        // Then
-        depositResultActions
-                .andExpect(status().isOk());
-
-        getResultActions
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":100.0}")));
-    }
-
-    @Test
-    public void shouldReturnAccountWithBalanceWithdrawal() throws Exception {
-
-        // Given
-        // Account rest service
-        ResultActions createResultActions = mvc.perform(post("/account/create"));
-        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
-        Integer id = new Integer(idStr);
-        mvc.perform(post("/account/deposit")
-                .param("id", id.toString())
-                .param("amount", "100"));
-
-        // When
-        ResultActions withdrawalResultActions = mvc.perform(post("/account/withdrawal")
-                .param("id", id.toString())
-                .param("amount", "30"));
-
-        ResultActions getResultActions = mvc.perform(get("/account/get")
-                .param("id", id.toString()));
-
-        // Then
-        withdrawalResultActions
-                .andExpect(status().isOk());
-
-        getResultActions
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":70.0}")));
-    }
-
-    @Test
-    public void shouldReturnAccountHistory() throws Exception {
-
-        // Given
-        // Account rest service
-        ResultActions createResultActions = mvc.perform(post("/account/create"));
-        String idStr = createResultActions.andReturn().getResponse().getContentAsString();
-        Integer id = new Integer(idStr);
-
-        mvc.perform(post("/account/deposit")
-                .param("id", id.toString())
-                .param("amount", "100"));
-
-        mvc.perform(post("/account/deposit")
-                .param("id", id.toString())
-                .param("amount", "100"));
-
-        // When
-        ResultActions resultActions = mvc.perform(get("/account/history")
-                .param("id", id.toString()));
-
-        // Then
-        resultActions
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString().matches("^[" +
-                "{\"id\":1,\"date\":[0-9]+,\"type\":\"DEPOSIT\",\"amount\":100.0,\"balance\":100.0}," +
-                "{\"id\":2,\"date\":[0-9]+,\"type\":\"DEPOSIT\",\"amount\":100.0,\"balance\":200.0}" +
-                "]$");
     }
 
 }
