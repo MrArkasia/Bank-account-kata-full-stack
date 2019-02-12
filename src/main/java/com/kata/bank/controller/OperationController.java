@@ -32,7 +32,6 @@ public class OperationController {
     }
 
     @GetMapping({"", "/"})
-    @ResponseBody
     public List<Operation> history(
             @RequestParam Integer accountId) {
 

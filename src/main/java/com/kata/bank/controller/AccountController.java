@@ -13,13 +13,11 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping({"", "/"})
-    @ResponseBody
     public Integer create() {
         return accountService.create();
     }
 
     @GetMapping({"", "/"})
-    @ResponseBody
     public Account get(@RequestParam Integer accountId) {
         return accountService.find(accountId);
     }
