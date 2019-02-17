@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PageNotFoundComponent} from './page-not-found.component';
+import {AccountHistoryComponent} from './account-history.component';
 
-describe('PageNotFoundComponent', () => {
-  let component: PageNotFoundComponent;
-  let fixture: ComponentFixture<PageNotFoundComponent>;
+describe('AccountHistoryComponent', () => {
+  let component: AccountHistoryComponent;
+  let fixture: ComponentFixture<AccountHistoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PageNotFoundComponent]
+      declarations: [AccountHistoryComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageNotFoundComponent);
+    fixture = TestBed.createComponent(AccountHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

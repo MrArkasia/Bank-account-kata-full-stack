@@ -1,0 +1,10 @@
+<table id="accounts">
+  <tr>
+    <th>ID</th>
+    <th>Balance</th>
+  </tr>
+  <tr *ngFor="let p of accounts;" (click)="go(p.id)">
+    <td>{{p.id}}</td>
+    <td>{{p.balance}}</td>
+  </tr>
+</table>

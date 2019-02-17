@@ -9,19 +9,14 @@
       </button>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item class="sidenav-link" routerLink="dashboard/home" (click)="sidenav.toggle()">
-        <mat-icon mat-list-icon>home</mat-icon>
-        <span mat-line class="title">Home</span>
+      <a mat-list-item class="sidenav-link" routerLink="/" (click)="sidenav.toggle()">
+        <mat-icon mat-list-icon>list</mat-icon>
+        <span mat-line class="title">List of accounts</span>
         <!-- <span mat-line class="secondary"></span> -->
       </a>
-      <a mat-list-item class="sidenav-link" routerLink="/add" (click)="sidenav.toggle()">
+      <a mat-list-item class="sidenav-link" routerLink="/account/create" (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>add</mat-icon>
-        <span mat-line class="title">Add user</span>
-        <!-- <span mat-line class="secondary"></span> -->
-      </a>
-      <a mat-list-item class="sidenav-link" routerLink="/search" (click)="sidenav.toggle()">
-        <mat-icon mat-list-icon>search</mat-icon>
-        <span mat-line class="title">Search</span>
+        <span mat-line class="title">Create an account</span>
         <!-- <span mat-line class="secondary"></span> -->
       </a>
       <a mat-list-item [matMenuTriggerFor]="menu">
@@ -54,10 +49,9 @@
       <a style="font-size:220%;color:rgb(1, 213, 250);">Account</a>
     </button>
 
-    <span class="toolbar-filler"></span>
-    <button id="button-home" mat-button routerLink="dashboard/home">Home</button>
-    <button id="button-admin" mat-button routerLink="dashboard/admin">Admin</button>
-    <button id="button-login" mat-button routerLink="login" *ngIf="!(user | async)">Signin</button>
+    <!--<span class="toolbar-filler"></span>-->
+    <!--<button id="button-home" mat-button routerLink="dashboard/home">Home</button>-->
+
   </mat-toolbar>
   <router-outlet></router-outlet>
 </mat-sidenav-container>

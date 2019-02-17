@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AccountController {
 
     @Autowired
@@ -20,6 +21,11 @@ public class AccountController {
     @GetMapping({"", "/"})
     public Account get(@RequestParam Integer accountId) {
         return accountService.find(accountId);
+    }
+
+    @GetMapping({"/all"})
+    public Iterable<Account> get() {
+        return accountService.findAll();
     }
 
 }
