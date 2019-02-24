@@ -8,13 +8,15 @@ import {AccountDetailsComponent} from './account-details/account-details.compone
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AccountHistoryComponent} from './account-history/account-history.component';
+import {AccountOperationComponent} from './account-operation/account-operation.component';
 
 @NgModule({
   declarations: [
     AccountListComponent,
     AccountCreateComponent,
     AccountDetailsComponent,
-    AccountHistoryComponent
+    AccountHistoryComponent,
+    AccountOperationComponent
   ],
   imports: [
     CommonModule,

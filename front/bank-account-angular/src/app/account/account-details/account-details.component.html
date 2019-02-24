@@ -1,6 +1,23 @@
-<p>
-  <br>
-  ID : {{account.id}} <br><br>
-  Balance : {{account.balance}}<br><br>
-  <button (click)="showHistory()">History</button>
-</p>
+<table id="details">
+  <tr>
+    <td>ID</td>
+    <td>{{account.id}}</td>
+  </tr>
+  <tr>
+    <td>Balance</td>
+    <td>{{account.balance}}</td>
+  </tr>
+</table>
+<table id="button">
+  <tr>
+    <td>
+      <button (click)="goToHistory()">History</button>
+    </td>
+    <td>
+      <button (click)="goToOperation()">Operation</button>
+    </td>
+    <td>
+      <button (click)="goToList()">Return</button>
+    </td>
+  </tr>
+</table>

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {OperationService} from "../../service/operation.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-account-history',
@@ -7,10 +9,33 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AccountHistoryComponent implements OnInit {
 
-  constructor() {
+  id: number;
+  history: any = [];
+
+  constructor(
+    private operationService: OperationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.id = params.id;
+      });
+    this.getHistory();
+  }
+
+  getHistory() {
+    this.history = [];
+    this.operationService.getHistory(this.id).subscribe((data: {}) => {
+      this.history = data;
+    });
+  }
+
+  goToDetails() {
+    this.router.navigate(['/account/details'], {queryParams: {id: this.id}});
   }
 
 }

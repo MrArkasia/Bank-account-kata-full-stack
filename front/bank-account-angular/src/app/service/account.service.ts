@@ -19,18 +19,18 @@ export class AccountService {
     return body || {};
   }
 
-  getAll(): Observable<any> {
+  public getAll(): Observable<any> {
     return this.http.get(this.url + '/all').pipe(
       map(this.extractData));
   }
 
-  get(id): Observable<any> {
+  public get(id): Observable<any> {
     let params = new HttpParams().set("accountId", id);
     return this.http.get(this.url, {params: params}).pipe(
       map(this.extractData));
   }
 
-  add(name): Observable<any> {
+  public add(name): Observable<any> {
     let params = new HttpParams().set("name", name);
     return this.http.post(this.url, {params: params}).pipe(
       map(this.extractData));

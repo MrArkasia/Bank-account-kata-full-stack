@@ -17,19 +17,19 @@ public class OperationController {
     private OperationService operationService;
 
     @PostMapping("/deposit")
-    public void deposit(
+    public Integer deposit(
             @RequestParam Integer accountId,
             @RequestParam Double amount) throws OperationException {
 
-        operationService.deposit(accountId, amount);
+        return operationService.deposit(accountId, amount);
     }
 
     @PostMapping("/withdrawal")
-    public void withdrawal(
+    public Integer withdrawal(
             @RequestParam Integer accountId,
             @RequestParam Double amount) throws OperationException {
 
-        operationService.withdrawal(accountId, amount);
+        return operationService.withdrawal(accountId, amount);
     }
 
     @GetMapping({"", "/"})

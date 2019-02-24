@@ -7,10 +7,11 @@
     <th>Balance</th>
   </tr>
   <tr *ngFor="let h of history;">
-    <td>{{p.id}}</td>
-    <td>{{p.date}}</td>
-    <td>{{p.type}}</td>
-    <td>{{p.amount}}</td>
-    <td>{{p.balance}}</td>
+    <td>{{h.id}}</td>
+    <td>{{h.date}}</td>
+    <td>{{h.type}}</td>
+    <td>{{h.amount}}</td>
+    <td>{{h.balance}}</td>
   </tr>
 </table>
+<button (click)="goToDetails()">Return</button>

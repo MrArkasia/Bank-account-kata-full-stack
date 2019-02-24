@@ -1,0 +1,14 @@
+<div id="operation">
+  <br/>
+  <label>Type : </label>
+  <form>
+    <input type="radio" name="type" value="withdrawal" (click)="isWithdrawal()"> Withdrawal <br>
+    <input type="radio" name="type" value="deposit" (click)="isDeposit()"> Deposit <br>
+  </form>
+  <br/>
+  <label for="amount">Amount</label>
+  <input type="text" id="amount" name="amount" [formControl]="amount">
+  <br/>
+  <button (click)="handleOperation()">Apply</button>
+  <button (click)="goToDetails()">Return</button>
+</div>

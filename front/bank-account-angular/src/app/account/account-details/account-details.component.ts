@@ -33,8 +33,16 @@ export class AccountDetailsComponent implements OnInit {
     });
   }
 
-  public showHistory() {
+  public goToHistory() {
     this.router.navigate(['/account/history'], {queryParams: {id: this.id}});
+  }
+
+  public goToOperation() {
+    this.router.navigate(['/account/operation'], {queryParams: {id: this.id}});
+  }
+
+  public goToList() {
+    this.router.navigate(['/account']);
   }
 
 }

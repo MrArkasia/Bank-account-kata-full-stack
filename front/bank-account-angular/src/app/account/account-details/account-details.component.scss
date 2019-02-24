@@ -1,16 +1,37 @@
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+#details {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 300px;
+}
+
+#details td, #details th {
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+#details tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#details tr:hover {
+  background-color: #ddd;
+}
+
+#details th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #869a9e;
+  color: white;
+}
+
+#button td {
+  padding: 8px;
 }
 
 button {
   width: 100%;
-  background-color: #ff685d;
+  background-color: #869a9e;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -20,11 +41,5 @@ button {
 }
 
 button:hover {
-  background-color: #ff4034;
-}
-
-div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
+  background-color: #5e6f73;
 }

@@ -25,7 +25,7 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  go(id) {
+  goDetails(id) {
     this.router.navigate(['/account/details'], {queryParams: {id: id}});
   }
 

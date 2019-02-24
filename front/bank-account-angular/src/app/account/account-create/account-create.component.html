@@ -1,7 +1,9 @@
-<div>
-  <label>Name</label>
-  <input type="text" [formControl]="name">
-  <label>FirstName</label>
+<p id="create">
+  <br>
+  <label>First Name</label>
   <input type="text" [formControl]="firstName">
+  <label>Last Name</label>
+  <input type="text" [formControl]="lastName">
   <button (click)="createAccount()">Create Account</button>
-</div>
+  <button (click)="goToList()">Return</button>
+</p>

@@ -10,12 +10,15 @@ import {Router} from "@angular/router";
 })
 export class AccountCreateComponent implements OnInit {
 
-  name = new FormControl('');
+  lastName = new FormControl('');
   firstName = new FormControl('');
 
   id: string;
 
-  constructor(private accountsService: AccountService, private router: Router) {
+  constructor(
+    private accountsService: AccountService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -25,6 +28,10 @@ export class AccountCreateComponent implements OnInit {
     this.accountsService.add(name).subscribe((data: number) => {
       this.router.navigate(['/account/details'], {queryParams: {id: data}});
     });
+  }
+
+  public goToList() {
+    this.router.navigate(['/account']);
   }
 
 }

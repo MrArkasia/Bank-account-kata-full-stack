@@ -16,7 +16,7 @@ public class OperationService {
     @Autowired
     AmountService amountService;
 
-    public void deposit(Integer accountId, Double amount) throws OperationException {
+    public Integer deposit(Integer accountId, Double amount) throws OperationException {
         Account account = accountService.find(accountId);
         if (amountService.isAmountValid(amount)) {
             account.setBalance(account.getBalance() + amount);
@@ -27,12 +27,13 @@ public class OperationService {
                     .build();
             account.getHistory().add(operation);
             accountService.save(account);
+            return accountId;
         } else {
             throw new OperationException();
         }
     }
 
-    public void withdrawal(Integer accountId, Double amount) throws OperationException {
+    public Integer withdrawal(Integer accountId, Double amount) throws OperationException {
         Account account = accountService.find(accountId);
         if (amountService.isAmountValid(amount) && amountService.isWithdrawalAllowed(account.getBalance(), amount)) {
             account.setBalance(account.getBalance() - amount);
@@ -43,6 +44,7 @@ public class OperationService {
                     .build();
             account.getHistory().add(operation);
             accountService.save(account);
+            return accountId;
         } else {
             throw new OperationException();
         }
