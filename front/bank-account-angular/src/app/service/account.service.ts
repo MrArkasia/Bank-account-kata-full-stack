@@ -19,11 +19,13 @@ export class AccountService {
     return body || {};
   }
 
+  //TODO remove all
   public getAll(): Observable<any> {
     return this.http.get(this.url + '/all').pipe(
       map(this.extractData));
   }
 
+  //TODO change options to body
   public get(id): Observable<any> {
     let params = new HttpParams().set("accountId", id);
     return this.http.get(this.url, {params: params}).pipe(

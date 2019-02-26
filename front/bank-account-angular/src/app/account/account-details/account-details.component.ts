@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-account-details',
   templateUrl: './account-details.component.html',
-  styleUrls: ['./account-details.component.scss']
+  styleUrls: ['./account-details.component.scss', '../../app.component.scss']
 })
 export class AccountDetailsComponent implements OnInit {
 
@@ -33,15 +33,15 @@ export class AccountDetailsComponent implements OnInit {
     });
   }
 
-  public goToHistory() {
+  public gotoHistory() {
     this.router.navigate(['/account/history'], {queryParams: {id: this.id}});
   }
 
-  public goToOperation() {
+  public gotoOperation() {
     this.router.navigate(['/account/operation'], {queryParams: {id: this.id}});
   }
 
-  public goToList() {
+  public gotoList() {
     this.router.navigate(['/account']);
   }
 

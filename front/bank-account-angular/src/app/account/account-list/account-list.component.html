@@ -1,10 +1,13 @@
-<table id="accounts">
-  <tr>
-    <th>ID</th>
-    <th>Balance</th>
-  </tr>
-  <tr *ngFor="let a of accounts;" (click)="goDetails(a.id)">
-    <td>{{a.id}}</td>
-    <td>{{a.balance}}</td>
-  </tr>
-</table>
+<div>
+  <h1>List of accounts</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Balance</th>
+    </tr>
+    <tr *ngFor="let a of accounts;" (click)="gotoDetails(a.id)">
+      <td>{{a.id}}</td>
+      <td>{{a.balance}}</td>
+    </tr>
+  </table>
+</div>

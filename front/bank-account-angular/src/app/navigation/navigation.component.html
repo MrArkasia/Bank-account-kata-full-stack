@@ -1,7 +1,6 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="push" class="app-sidenav">
     <mat-toolbar color="primary">
-      <!--future svg to go here-->
       <span class="toolbar-filler"></span>
       <button mat-icon-button (click)="sidenav.toggle()"
               class="mat-icon-button sidenav-toggle-button" [hidden]="!sidenav.opened">
@@ -12,31 +11,11 @@
       <a mat-list-item class="sidenav-link" routerLink="/" (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>list</mat-icon>
         <span mat-line class="title">List of accounts</span>
-        <!-- <span mat-line class="secondary"></span> -->
       </a>
       <a mat-list-item class="sidenav-link" routerLink="/account/create" (click)="sidenav.toggle()">
         <mat-icon mat-list-icon>add</mat-icon>
         <span mat-line class="title">Create an account</span>
-        <!-- <span mat-line class="secondary"></span> -->
       </a>
-      <a mat-list-item [matMenuTriggerFor]="menu">
-        <mat-icon mat-list-icon>more_vert</mat-icon>
-        <span mat-line class="title">More</span>
-      </a>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>details</mat-icon>
-          <span>User details</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>format_color_fill</mat-icon>
-          <span>Theme</span>
-        </button>
-      </mat-menu>
     </mat-nav-list>
   </mat-sidenav>
   <mat-toolbar id="appToolbar" color="primary">
@@ -48,10 +27,6 @@
       <a style="font-size:220%;color:rgb(0,154,216);">Bank</a>
       <a style="font-size:220%;color:rgb(255,255,255);">Account</a>
     </button>
-
-    <!--<span class="toolbar-filler"></span>-->
-    <!--<button id="button-home" mat-button routerLink="dashboard/home">Home</button>-->
-
   </mat-toolbar>
   <router-outlet></router-outlet>
 </mat-sidenav-container>

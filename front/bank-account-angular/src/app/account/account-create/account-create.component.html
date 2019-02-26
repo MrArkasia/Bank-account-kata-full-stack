@@ -1,9 +1,13 @@
-<p id="create">
-  <br>
-  <label>First Name</label>
-  <input type="text" [formControl]="firstName">
-  <label>Last Name</label>
-  <input type="text" [formControl]="lastName">
-  <button (click)="createAccount()">Create Account</button>
-  <button (click)="goToList()">Return</button>
-</p>
+<div>
+  <h1>Create account</h1>
+  <form class="form">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="First Name" value="" [formControl]="firstName">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Last Name" value="" [formControl]="lastName">
+    </mat-form-field>
+  </form>
+  <button mat-button (click)="createAccount()">Create</button>
+  <button mat-button (click)="gotoList()">Return</button>
+</div>

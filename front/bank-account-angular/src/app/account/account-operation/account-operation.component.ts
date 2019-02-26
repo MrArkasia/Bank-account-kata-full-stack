@@ -1,23 +1,32 @@
 import {Component, OnInit} from '@angular/core';
 import {OperationService} from "../../service/operation.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormControl} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-account-operation',
   templateUrl: './account-operation.component.html',
-  styleUrls: ['./account-operation.component.scss', '../../app.component.css']
+  styleUrls: ['./account-operation.component.scss', '../../app.component.scss']
 })
 export class AccountOperationComponent implements OnInit {
 
   id: number;
-  type: String = '';
-  amount = new FormControl('');
+
+  operationForm = this.fb.group({
+    amount: ['', Validators.compose([
+      Validators.required,
+      Validators.pattern('\\-?\\d*\\.?\\d{1,2}')
+    ])],
+    type: [,
+      Validators.required
+    ]
+  });
 
   constructor(
     private route: ActivatedRoute,
     private operationService: OperationService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
   }
 
@@ -28,11 +37,24 @@ export class AccountOperationComponent implements OnInit {
       });
   }
 
+  onSubmit() {
+    this.handleOperation();
+  }
+
+  get amount() {
+    return this.operationForm.get('amount');
+  }
+
+  get type() {
+    return this.operationForm.get('type');
+  }
+
   public handleOperation() {
-    if (this.type === "withdrawal") {
-      this.withdrawal();
-    } else if (this.type === "deposit") {
+    console.log("type : " + this.type.value);
+    if (this.type.value === "deposit") {
       this.deposit();
+    } else if (this.type.value === "withdrawal") {
+      this.withdrawal();
     }
   }
 
@@ -48,17 +70,7 @@ export class AccountOperationComponent implements OnInit {
     });
   }
 
-  isWithdrawal() {
-    console.log("is withdrawal");
-    this.type = "withdrawal";
-  }
-
-  isDeposit() {
-    console.log("is deposit");
-    this.type = "deposit";
-  }
-
-  goToDetails() {
+  gotoDetails() {
     this.router.navigate(['/account/details'], {queryParams: {id: this.id}});
   }
 

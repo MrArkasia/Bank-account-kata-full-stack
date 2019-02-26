@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-account-list',
   templateUrl: './account-list.component.html',
-  styleUrls: ['./account-list.component.scss']
+  styleUrls: ['./account-list.component.scss', '../../app.component.scss']
 })
 export class AccountListComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  goDetails(id) {
+  gotoDetails(id) {
     this.router.navigate(['/account/details'], {queryParams: {id: id}});
   }
 

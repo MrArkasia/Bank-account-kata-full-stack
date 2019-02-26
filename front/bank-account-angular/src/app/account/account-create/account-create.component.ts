@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-account-create',
   templateUrl: './account-create.component.html',
-  styleUrls: ['./account-create.component.scss']
+  styleUrls: ['./account-create.component.scss', '../../app.component.scss']
 })
 export class AccountCreateComponent implements OnInit {
 
@@ -24,13 +24,13 @@ export class AccountCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  createAccount() {
+  public createAccount() {
     this.accountsService.add(name).subscribe((data: number) => {
       this.router.navigate(['/account/details'], {queryParams: {id: data}});
     });
   }
 
-  public goToList() {
+  public gotoList() {
     this.router.navigate(['/account']);
   }
 

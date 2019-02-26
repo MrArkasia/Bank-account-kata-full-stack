@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-account-history',
   templateUrl: './account-history.component.html',
-  styleUrls: ['./account-history.component.scss']
+  styleUrls: ['./account-history.component.scss', '../../app.component.scss']
 })
 export class AccountHistoryComponent implements OnInit {
 
@@ -34,7 +34,7 @@ export class AccountHistoryComponent implements OnInit {
     });
   }
 
-  goToDetails() {
+  gotoDetails() {
     this.router.navigate(['/account/details'], {queryParams: {id: this.id}});
   }
 

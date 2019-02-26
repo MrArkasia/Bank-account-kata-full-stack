@@ -1,14 +1,19 @@
-<div id="operation">
-  <br/>
-  <label>Type : </label>
-  <form>
-    <input type="radio" name="type" value="withdrawal" (click)="isWithdrawal()"> Withdrawal <br>
-    <input type="radio" name="type" value="deposit" (click)="isDeposit()"> Deposit <br>
+<div>
+  <h1>Operation</h1>
+  <form [formGroup]="operationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input matInput placeholder="0.0" formControlName="amount">
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="amount.invalid">Only numbers</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Type" formControlName="type">
+        <mat-option value="deposit">Deposit</mat-option>
+        <mat-option value="withdrawal">Withdrawal</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button type="submit">Submit</button>
+    <button mat-button (click)="gotoDetails()">Return</button>
   </form>
-  <br/>
-  <label for="amount">Amount</label>
-  <input type="text" id="amount" name="amount" [formControl]="amount">
-  <br/>
-  <button (click)="handleOperation()">Apply</button>
-  <button (click)="goToDetails()">Return</button>
 </div>
