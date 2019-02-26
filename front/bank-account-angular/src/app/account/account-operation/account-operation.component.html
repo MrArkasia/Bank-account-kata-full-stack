@@ -5,7 +5,7 @@
       <mat-label>Amount</mat-label>
       <input matInput placeholder="0.0" formControlName="amount">
       <span matPrefix>$&nbsp;</span>
-      <mat-error *ngIf="amount.invalid">Only numbers</mat-error>
+      <mat-error *ngIf="amount.invalid">Error: only numbers</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Type" formControlName="type">
@@ -13,7 +13,9 @@
         <mat-option value="withdrawal">Withdrawal</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-button type="submit">Submit</button>
+    <button mat-button type="submit" [disabled]="!operationForm.valid">Submit</button>
     <button mat-button (click)="gotoDetails()">Return</button>
   </form>
+  <br>
+  <mat-error *ngIf="error">Unable to validate operation</mat-error>
 </div>

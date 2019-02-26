@@ -1,13 +1,17 @@
 <div>
   <h1>Create account</h1>
-  <form class="form">
-    <mat-form-field class="full-width">
-      <input matInput placeholder="First Name" value="" [formControl]="firstName">
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="firstName.invalid">Error: only letters</mat-error>
     </mat-form-field>
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Last Name" value="" [formControl]="lastName">
+    <mat-form-field>
+      <mat-label>lastName</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="lastName.invalid">Error: only letters</mat-error>
     </mat-form-field>
+    <button mat-button type="submit" [disabled]="!accountForm.valid">Submit</button>
+    <button mat-button (click)="gotoList()">Return</button>
   </form>
-  <button mat-button (click)="createAccount()">Create</button>
-  <button mat-button (click)="gotoList()">Return</button>
 </div>

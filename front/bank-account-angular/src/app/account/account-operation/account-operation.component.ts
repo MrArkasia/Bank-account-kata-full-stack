@@ -11,6 +11,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class AccountOperationComponent implements OnInit {
 
   id: number;
+  error = false;
 
   operationForm = this.fb.group({
     amount: ['', Validators.compose([
@@ -37,20 +38,7 @@ export class AccountOperationComponent implements OnInit {
       });
   }
 
-  onSubmit() {
-    this.handleOperation();
-  }
-
-  get amount() {
-    return this.operationForm.get('amount');
-  }
-
-  get type() {
-    return this.operationForm.get('type');
-  }
-
   public handleOperation() {
-    console.log("type : " + this.type.value);
     if (this.type.value === "deposit") {
       this.deposit();
     } else if (this.type.value === "withdrawal") {
@@ -59,19 +47,45 @@ export class AccountOperationComponent implements OnInit {
   }
 
   private withdrawal() {
-    this.operationService.withdrawal(this.id, this.amount.value).subscribe((data: number) => {
-      this.router.navigate(['/account/details'], {queryParams: {id: data}});
-    });
+    this.operationService.withdrawal(this.id, this.amount.value).subscribe(
+      (data: number) => {
+        console.log('success', data),
+          this.router.navigate(['/account/details'], {queryParams: {id: data}});
+      },
+      error => {
+        console.log('oops', error)
+        this.error = true;
+      }
+    );
   }
 
   private deposit() {
-    this.operationService.deposit(this.id, this.amount.value).subscribe((data: number) => {
-      this.router.navigate(['/account/details'], {queryParams: {id: data}});
-    });
+    this.operationService.deposit(this.id, this.amount.value).subscribe(
+      (data: number) => {
+        console.log('success', data),
+          this.router.navigate(['/account/details'], {queryParams: {id: data}});
+      },
+      error => {
+        console.log('oops', error)
+        this.error = true;
+      }
+    );
+  }
+
+  onSubmit() {
+    this.handleOperation();
   }
 
   gotoDetails() {
     this.router.navigate(['/account/details'], {queryParams: {id: this.id}});
+  }
+
+  get amount() {
+    return this.operationForm.get('amount');
+  }
+
+  get type() {
+    return this.operationForm.get('type');
   }
 
 }
