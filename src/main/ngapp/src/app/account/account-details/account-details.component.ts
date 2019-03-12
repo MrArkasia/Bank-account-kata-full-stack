@@ -1,0 +1,48 @@
+import {Component, OnInit} from '@angular/core';
+import {AccountService} from "../../service/account.service";
+import {ActivatedRoute, Router} from "@angular/router";
+
+@Component({
+  selector: 'app-account-details',
+  templateUrl: './account-details.component.html',
+  styleUrls: ['./account-details.component.scss', '../../app.component.scss']
+})
+export class AccountDetailsComponent implements OnInit {
+
+  id: number;
+  account: any = [];
+
+  constructor(
+    private accountsService: AccountService,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
+
+  ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.id = params.id;
+      });
+    this.getAccount();
+  }
+
+  private getAccount() {
+    this.account = [];
+    this.accountsService.get(this.id).subscribe((data: {}) => {
+      this.account = data;
+    });
+  }
+
+  public gotoHistory() {
+    this.router.navigate(['/account/history'], {queryParams: {id: this.id}});
+  }
+
+  public gotoOperation() {
+    this.router.navigate(['/account/operation'], {queryParams: {id: this.id}});
+  }
+
+  public gotoList() {
+    this.router.navigate(['/account']);
+  }
+
+}

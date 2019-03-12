@@ -1,0 +1,16 @@
+<div>
+  <h1>Account details</h1>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td>{{account.id}}</td>
+    </tr>
+    <tr>
+      <td>Balance</td>
+      <td>{{account.balance}}</td>
+    </tr>
+  </table>
+  <button mat-button (click)="gotoHistory()">History</button>
+  <button mat-button (click)="gotoOperation()">Operation</button>
+  <button mat-button (click)="gotoList()">Return</button>
+</div>
