@@ -6,9 +6,27 @@ This project is a kata made with TDD method. The program simulates a bank accoun
 
 ### Prerequisites
 
-You must have Java installed on your computer. Otherwise, you can download the JRE at this [address](https://www.java.com/fr/download/)
+You must have Docker installed on your computer. Otherwise, you can download Docker at this [address](https://www.docker.com)
 
 ### Running
+
+Download or clone this repository
+```
+git clone https://github.com/MrArkasia/Bank-account-kata-full-stack.git
+```
+Go to project repository
+```
+cd Bank-account-kata-full-stack/
+```
+Build an image from a Dockerfile
+```
+docker build -t bankapp .
+```
+Create a container based on "bankapp" image
+```
+docker run -p 8080:80 bankapp
+```
+You can try the application at this URL http://localhost:8080 
 
 ## Rules
 

@@ -1,7 +1,4 @@
-#docker build -t myapp .
-#docker run -p 8080:80 myapp
-
-### STAGE 1: NODE ###
+### STAGE 1: BUILD ANGULAR APP ###
 FROM node:11 as builder
 
 COPY . ./bank-account
@@ -12,7 +9,7 @@ RUN npm install -g @angular/cli
 RUN npm install node-sass
 RUN ng build --prod
 
-### STAGE 3 MAVEN ###
+### STAGE 3 BUILD AND RUN JAVA APP WITH MAVEN ###
 FROM maven:3.6.0
 
 COPY . .
@@ -23,7 +20,7 @@ RUN mvn package
 
 CMD java -jar target/bank-0.0.1-SNAPSHOT.jar
 
-### STAGE 2: NGINX ###
+### STAGE 2: RUN WEB APP ON NGINX SERVER ###
 FROM nginx:1.15.9
 
 RUN rm -rf /usr/share/nginx/html/*
