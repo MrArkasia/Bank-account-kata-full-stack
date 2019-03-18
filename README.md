@@ -1,6 +1,6 @@
 # Bank-account-kata-full-stack
 
-This project is a kata made with TDD method. The program simulates a bank account.
+This project is a kata made with TDD method. The program simulates a bank accounts.
 
 ## Getting Started
 
@@ -14,25 +14,27 @@ Download or clone this repository
 ```
 git clone https://github.com/MrArkasia/Bank-account-kata-full-stack.git
 ```
-Go to project repository
+Go to project directory
 ```
 cd Bank-account-kata-full-stack/
 ```
-Build an image from a Dockerfile
+Build the images from the docker files
 ```
-docker build -t bankapp .
+docker build -t back .
+docker build -t front ./src/main/ngapp
 ```
-Create a container based on "bankapp" image
+Create the containers
 ```
-docker run -p 8080:80 bankapp
+docker run -d -p 8090:8090 back
+docker run -d -p 8080:80 front
 ```
-You can try the application at this URL http://localhost:8080 
+You can try the application at this URL http://localhost:8080
 
 ## Rules
 
 You can deposit, withdrawal and view account history.
 
-## Controles
+## Controls
 
  bank account simulator performs several checks during money transfers
 
