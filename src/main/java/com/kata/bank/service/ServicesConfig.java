@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 public class ServicesConfig {
 
     @Bean
-    public AmountService amountService() { return new AmountService(); }
+    public AmountService amountService() {
+        return new AmountService();
+    }
 
     @Bean
     public OperationService operationService() {

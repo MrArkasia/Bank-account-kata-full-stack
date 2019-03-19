@@ -6,6 +6,8 @@
 ## Angular ##
 # compiled output
 /dist
+/src/main/ngapp/dist
+/src/main/ngapp/node_modules
 /webapp
 /tmp
 /app/**/*.js
