@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,12 +39,12 @@ public class AccountServiceImplTest {
 
         // When
         Integer accountId = accountService.create();
-        Double balance = accountService.getBalance(accountId);
+        BigDecimal balance = accountService.getBalance(accountId);
 
         // Then
         assertThat(balance)
                 .isNotNull()
-                .isEqualTo(0.0);
+                .isEqualByComparingTo("0.0");
     }
 
     @Test
@@ -66,10 +67,10 @@ public class AccountServiceImplTest {
 
         // Given
         Integer accountId = accountService.create();
-        operationService.deposit(accountId, 100.0);
-        operationService.withdrawal(accountId, 20.0);
-        operationService.deposit(accountId, 50.5);
-        operationService.withdrawal(accountId, 40.0);
+        operationService.deposit(accountId, new BigDecimal(100.0));
+        operationService.withdrawal(accountId, new BigDecimal(20.0));
+        operationService.deposit(accountId, new BigDecimal(50.5));
+        operationService.withdrawal(accountId, new BigDecimal(40.0));
 
         // When
         List<Operation> operations = operationService.getHistory(accountId);

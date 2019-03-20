@@ -69,7 +69,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk());
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.0}")));
+                .andExpect(content().string(Matchers.containsString("{\"id\":" + id + ",\"balance\":0.00}")));
     }
 
 }

@@ -6,6 +6,7 @@ import com.kata.bank.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class OperationController {
     @PostMapping("/deposit")
     public Integer deposit(
             @RequestParam Integer accountId,
-            @RequestParam Double amount) throws OperationException {
+            @RequestParam BigDecimal amount) throws OperationException {
 
         return operationService.deposit(accountId, amount);
     }
@@ -27,7 +28,7 @@ public class OperationController {
     @PostMapping("/withdrawal")
     public Integer withdrawal(
             @RequestParam Integer accountId,
-            @RequestParam Double amount) throws OperationException {
+            @RequestParam BigDecimal amount) throws OperationException {
 
         return operationService.withdrawal(accountId, amount);
     }

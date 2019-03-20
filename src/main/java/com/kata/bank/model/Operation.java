@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -29,10 +30,10 @@ public class Operation {
     private OperationType type;
 
     @Column(name = "amount")
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
 
     @PrePersist
     void createdAt() {

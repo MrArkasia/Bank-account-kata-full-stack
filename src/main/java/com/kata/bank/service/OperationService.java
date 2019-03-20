@@ -5,6 +5,7 @@ import com.kata.bank.model.Operation;
 import com.kata.bank.model.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,10 @@ public class OperationService {
     @Autowired
     AmountService amountService;
 
-    public Integer deposit(Integer accountId, Double amount) throws OperationException {
+    public Integer deposit(Integer accountId, BigDecimal amount) throws OperationException {
         Account account = accountService.find(accountId);
         if (amountService.isAmountValid(amount)) {
-            account.setBalance(account.getBalance() + amount);
+            account.setBalance(account.getBalance().add(amount));
             Operation operation = Operation.builder()
                     .type(OperationType.DEPOSIT)
                     .balance(account.getBalance())
@@ -33,10 +34,10 @@ public class OperationService {
         }
     }
 
-    public Integer withdrawal(Integer accountId, Double amount) throws OperationException {
+    public Integer withdrawal(Integer accountId, BigDecimal amount) throws OperationException {
         Account account = accountService.find(accountId);
         if (amountService.isAmountValid(amount) && amountService.isWithdrawalAllowed(account.getBalance(), amount)) {
-            account.setBalance(account.getBalance() - amount);
+            account.setBalance(account.getBalance().subtract(amount));
             Operation operation = Operation.builder()
                     .type(OperationType.WITHDRAWAL)
                     .balance(account.getBalance())

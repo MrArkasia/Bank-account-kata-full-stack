@@ -4,6 +4,7 @@ import com.kata.bank.model.Account;
 import com.kata.bank.persistance.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class AccountService {
@@ -33,7 +34,7 @@ public class AccountService {
         return null;
     }
 
-    public Double getBalance(Integer id) {
+    public BigDecimal getBalance(Integer id) {
         Account account = this.find(id);
         if (account != null) {
             return account.getBalance();

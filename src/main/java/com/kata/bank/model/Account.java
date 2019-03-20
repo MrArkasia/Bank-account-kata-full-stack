@@ -1,9 +1,13 @@
 package com.kata.bank.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +24,8 @@ public class Account {
     @Column(name = "account_id")
     private Integer id;
 
-    @Setter
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
 
     @ElementCollection
     @JsonIgnore
@@ -32,7 +35,7 @@ public class Account {
 
     @PrePersist
     void createdAt() {
-        this.balance = 0.0;
+        this.balance = new BigDecimal(0.0);
     }
 
 }

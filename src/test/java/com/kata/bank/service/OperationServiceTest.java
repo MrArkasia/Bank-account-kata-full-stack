@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,13 +41,13 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(accountId, 1.0);
-        Double balance = accountService.getBalance(accountId);
+        operationService.deposit(accountId, new BigDecimal(1.0));
+        BigDecimal balance = accountService.getBalance(accountId);
 
         // Then
         assertThat(balance)
                 .isNotNull()
-                .isEqualTo(1.0);
+                .isEqualByComparingTo("1.0");
     }
 
     @Test(expected = OperationException.class)
@@ -56,7 +57,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(accountId, -1.0);
+        operationService.deposit(accountId, new BigDecimal(1.0).negate());
 
         // Then
         // new AccountException
@@ -79,16 +80,16 @@ public class OperationServiceTest {
     public void shouldReturnPositiveBalanceAfterWithdrawal() throws OperationException {
 
         // Given
-        operationService.deposit(accountId, 100.0);
+        operationService.deposit(accountId, new BigDecimal(100.0));
 
         // When
-        operationService.withdrawal(accountId, 30.0);
-        Double balance = accountService.getBalance(accountId);
+        operationService.withdrawal(accountId, new BigDecimal(30.0));
+        BigDecimal balance = accountService.getBalance(accountId);
 
         // Then
         assertThat(balance)
                 .isNotNull()
-                .isEqualTo(70.0);
+                .isEqualByComparingTo("70.0");
     }
 
     @Test(expected = OperationException.class)
@@ -98,7 +99,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.withdrawal(accountId, -1.0);
+        operationService.withdrawal(accountId, new BigDecimal(1.0).negate());
 
         // Then
         // new AccountException
@@ -124,7 +125,7 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.withdrawal(accountId, 1.0);
+        operationService.withdrawal(accountId, new BigDecimal(1.0));
 
         // Then
         // new AccountException
@@ -137,10 +138,10 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(accountId, 100.0);
-        operationService.withdrawal(accountId, 20.0);
-        operationService.deposit(accountId, 50.5);
-        operationService.withdrawal(accountId, 40.0);
+        operationService.deposit(accountId, new BigDecimal(100.0));
+        operationService.withdrawal(accountId, new BigDecimal(20.0));
+        operationService.deposit(accountId, new BigDecimal(50.5));
+        operationService.withdrawal(accountId, new BigDecimal(40.0));
         List<Operation> history = operationService.getHistory(accountId);
 
         // Then
@@ -156,10 +157,10 @@ public class OperationServiceTest {
         // an account
 
         // When
-        operationService.deposit(accountId, 100.0);
-        operationService.withdrawal(accountId, 20.0);
-        operationService.deposit(accountId, 50.5);
-        operationService.withdrawal(accountId, 40.0);
+        operationService.deposit(accountId, new BigDecimal(100.0));
+        operationService.withdrawal(accountId, new BigDecimal(20.0));
+        operationService.deposit(accountId, new BigDecimal(50.5));
+        operationService.withdrawal(accountId, new BigDecimal(40.0));
         Account account = accountService.find(accountId);
         List<Operation> history = operationService.getHistory(accountId);
 
@@ -169,7 +170,9 @@ public class OperationServiceTest {
                 .hasSize(4);
         assertThat(account)
                 .isNotNull()
-                .extracting("balance").contains(90.5);
+                .extracting("balance")
+                .usingComparatorForElementFieldsWithType(BigDecimal::compareTo, BigDecimal.class)
+                .contains(new BigDecimal("90.50"));
     }
 
 }

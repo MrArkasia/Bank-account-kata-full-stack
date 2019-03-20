@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -21,7 +23,7 @@ public class AmountServiceTest {
     public void ShouldReturnTrueForAmountValid() {
 
         // Given
-        Double amount = 100.0;
+        BigDecimal amount = new BigDecimal(100.0);
 
         // When
         boolean result = amountService.isAmountValid(amount);
@@ -34,7 +36,7 @@ public class AmountServiceTest {
     public void ShouldReturnFalseForNotAmountValid() {
 
         // Given
-        Double amount = -100.0;
+        BigDecimal amount = new BigDecimal(100.0).negate();
 
         // When
         boolean result = amountService.isAmountValid(amount);
@@ -47,8 +49,8 @@ public class AmountServiceTest {
     public void ShouldReturnTrueForAValidWithdrawal() {
 
         // Given
-        Double balance = 100.0;
-        Double amount = 50.0;
+        BigDecimal balance = new BigDecimal(100.0);
+        BigDecimal amount = new BigDecimal(50.0);
 
         // When
         boolean result = amountService.isWithdrawalAllowed(balance, amount);
@@ -61,8 +63,8 @@ public class AmountServiceTest {
     public void ShouldReturnTrueForNotValidWithdrawal() {
 
         // Given
-        Double balance = 30.0;
-        Double amount = 50.0;
+        BigDecimal balance = new BigDecimal(30.0);
+        BigDecimal amount = new BigDecimal(50.0);
 
         // When
         boolean result = amountService.isWithdrawalAllowed(balance, amount);
